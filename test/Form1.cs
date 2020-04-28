@@ -37,12 +37,10 @@ namespace test
         }
         
        public const string DEMOFILE = @"C:\Merz daily activities\Merz daily activities.xlsx";
-        public const string path = @"C:\Merz daily activities\";
+       public const string path = @"C:\Merz daily activities\";
+
         private void button1_Click(object sender, EventArgs e)
         {
-
-            
-            //const string DEMOFILE = @"C:\Users\Root\source\repos\test\test\Book1.xlsx";
 
             var application = new Microsoft.Office.Interop.Excel.Application();
             application.Visible = checkBox1.Checked ? true : false;//показувати ексель;
@@ -92,14 +90,10 @@ namespace test
             }
             if (count == name.Length)
             {
-                //Worksheet addSheet = application.Worksheets.Add(Type.Missing, Type.Missing, Type.Missing, Type.Missing);
                 Worksheet addSheet = application.Worksheets.Add();
                 addSheet.Name = date;
-                
             }
 
-
-            //application.Worksheets.Select(N); // Select first WS
 
             if (name.Length == 1)//Якщо у документі присутня тільки одна сторінка то для Active_sheet встановлюємо її значення
             {
@@ -108,10 +102,7 @@ namespace test
             
             var sheet = application.Worksheets.get_Item(Active_sheet);// Вибераєм лист для запису даних
            
-            ///
-            ///<ToDO>
-            ///Перепровірити на варіанті коли лист розміщений в середині книги
-            ///
+           
 
              Excel.Range range;
                        
@@ -153,7 +144,7 @@ namespace test
             ///
             
             
-                                       // int CDS = cnt;// кількість сторінок в книзі
+                                      
             int O = cnt;                         //перепресвоєння значення для cnt = application.Sheets.Count; після добавлення сторінки
             cnt = application.Sheets.Count;
             int[] delID = new int[cnt];// кількість сторінок в книзі
@@ -168,7 +159,7 @@ namespace test
 
             
 
-                for (int i = 0; i < cnt; i++)//for (int i = 0; i < CDS; i++)
+                for (int i = 0; i < cnt; i++)
             {
                     int x1 = delsheets[i].Length - 1;
                     delsheets[i] = delsheets[i].Remove(x1);// відкидуєм останю цифру в назві листка, перезаписуєм масив новими значенями
@@ -200,12 +191,15 @@ namespace test
                 CLS();
 
             Workbook book = application.ActiveWorkbook;
+           // book.SaveAs(@"C:\Merz daily activities\Merz daily activities.xlsx");
             book.Save();
-            //Threading
-            Thread.Sleep(500);
-
+            book.Close(true);
+            application.Quit();
+            
+            
+            Thread.Sleep(5000);
             application.Quit();// Close Excel
-
+            application = null;
             CloseProcess();
         }
 
