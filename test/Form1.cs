@@ -41,10 +41,12 @@ namespace test
         private void button1_Click(object sender, EventArgs e)
         {
 
-            //const string DEMOFILE = @"C:\Users\Root\source\repos\test\test\Book1.xlsx";
             
+            //const string DEMOFILE = @"C:\Users\Root\source\repos\test\test\Book1.xlsx";
+
             var application = new Microsoft.Office.Interop.Excel.Application();
-            application.Visible = true; //показувати ексель;
+            application.Visible = checkBox1.Checked ? true : false;//показувати ексель;
+            application.DisplayAlerts = checkBox2.Checked ? true : false; ;////Отключить отображение окон с сообщениями true- show
             try // check if file existing
             {
                 application.Workbooks.Open(DEMOFILE);
@@ -62,7 +64,7 @@ namespace test
                workbook.SaveAs(@"C:\Merz daily activities\Merz daily activities.xlsx");
             }
            
-            application.DisplayAlerts = false;////Отключить отображение окон с сообщениями true- show
+           
 
 
             int Active_sheet = 1;
@@ -90,7 +92,8 @@ namespace test
             }
             if (count == name.Length)
             {
-                Worksheet addSheet = application.Worksheets.Add(Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+                //Worksheet addSheet = application.Worksheets.Add(Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+                Worksheet addSheet = application.Worksheets.Add();
                 addSheet.Name = date;
                 
             }
@@ -240,7 +243,7 @@ namespace test
             Process.Start(psi);
 
         }
-    
-}
+
+    }
     }
 
