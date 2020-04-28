@@ -37,6 +37,7 @@ namespace test
         }
         
        public const string DEMOFILE = @"C:\Merz daily activities\Merz daily activities.xlsx";
+        public const string path = @"C:\Merz daily activities\";
         private void button1_Click(object sender, EventArgs e)
         {
 
@@ -53,7 +54,12 @@ namespace test
             {
                 Microsoft.Office.Interop.Excel.Workbook workbook = application.Workbooks.Add();
                 Microsoft.Office.Interop.Excel.Worksheet worksheet = workbook.Worksheets[1];
-                workbook.SaveAs(@"C:\Merz daily activities\Merz daily activities.xlsx");
+                // Determine whether the directory exists.
+                if (!Directory.Exists(path))// Try to create the directory.
+                {
+                    DirectoryInfo di = Directory.CreateDirectory(path);
+                }
+               workbook.SaveAs(@"C:\Merz daily activities\Merz daily activities.xlsx");
             }
            
             application.DisplayAlerts = false;////Отключить отображение окон с сообщениями true- show
@@ -230,7 +236,7 @@ namespace test
         private void button4_Click(object sender, EventArgs e)
         {
             var psi = new ProcessStartInfo();
-            psi.FileName = @"C:\Merz daily activities\";
+            psi.FileName = path;
             Process.Start(psi);
 
         }
